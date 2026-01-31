@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pronomen‑Kleiderschrank Demo</title>
+    <link rel="stylesheet" href="src/style.css"></link>
+  </head>
+  <body>
+    
+    <header>
+      <div id="logobox">
+        <a href="https://queer-lexikon.net"><img id="logo" src="img/Logo_Queer Lexikon_standard.svg"></a>
+      </div>
+    </header>
+
+    <div id="wrap">
+      <h1>Pronomen‑Kleiderschrank</h1>
+
+      <section id="calibrate">
+        <section class="checking">
+          <label for="names"><span class="strong">Name(n):</span></label>
+          <input type="text" id="names" placeholder="z.B. Alex Müller, Kim" />
+        </section>
+
+        <section class="checking">
+          <label for="salutation"><span class="strong">Anrede (optional):</span></label>
+          <select id="salutation">
+            <option value="">Vorname + Nachname</option>
+            <option value="Frau">Frau</option>
+            <option value="Herr">Herr</option>
+            <option value="Person">Person</option>
+            <option value="Mx.">Mx.</option>
+          </select>
+        </section>
+
+        <section class="checking">
+          <label for="textSelector"><span class="strong">Text auswählen:</span></label>
+          <select id="textSelector"></select>
+        </section>
+
+        <section id="pronounContainer">
+          <h3><span class="strong">Pronomen auswählen:</span></h3>
+        </section>
+
+        <section>
+          <h3><span class="strong">Zufallsmodus:</span></h3>
+          <label>
+            <input
+              type="radio"
+              id="randomSingle"
+              name="randomMode"
+              value="single"
+              checked
+            />
+            Ein Pronomen je Text
+          </label>
+          <label>
+            <input 
+              type="radio" 
+              id="randomEach" 
+              name="randomMode" 
+              value="each" 
+            />
+            Jedes Pronomen zufällig</label>
+        </section>
+
+        <section>
+          <button id="generateButton">Generieren</button>
+        </section>
+      </section>
+
+      <section id="results">
+        
+      </section>
+      
+      <div id="lowSpacer">
+      </div>
+      
+    
+    </div>
+  
+    <footer>
+      <div id="sponsorbox">
+        <a href="https://www.postcode-lotterie.de"><img id="sponsor" src="img/DPL_Logo_projektbezogen_Web.png" alt="Logo Deutsche Postcode Lotterie"></a>
+      </div>
+      <ul>
+        <li><a href="https://qlx.li/social">Social Media</a></li>
+        <li><a href="https://queer-lexikon.net/ueber-uns/spenden/">Unterstütze Uns!</a></li>
+        <li><a href="https://queer-lexikon.net/ueber-uns/so-erreichst-du-uns/">Kontakt & Feedback</a></li>
+        <li><a href="https://queer-lexikon.net/impressum/">Impressum</a></li>
+        <li><a href="https://queer-lexikon.net/datenschutz/">Datenschutz</a></li>
+      </ul>
+    </footer>
+
+    <script type="module" src="src/index.js"></script>
+
+  </body>
+</html>
