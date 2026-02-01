@@ -13,6 +13,6 @@ schnapp dir alles hier drin und werf es in ein Document-Root. Yay.
 
 Das Kleiderschrank-Projekt wurde inspiriert durch den englischen Pronoun Dressing Room: http://www.pronouns.failedslacker.com/.
 
-Das Queer Lexikon hat diesen mit einer Projektförderung der deutschen Postcode-Lotterie umgesetzt. Das Design kommt von Kim und Kim: https://owlisdoodles.art/, die Texte von Valo. 
+Das Queer Lexikon hat diesen mit einer Projektförderung der deutschen Postcode-Lotterie umgesetzt. Das Design kommt von Kim und Kim: https://owlisdoodles.art/, die Texte von Valo: https://valochristiansen.com. 
 
 
