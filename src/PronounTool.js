@@ -21,6 +21,22 @@ import PronounSet from "./PronounSet.js";
 
 export default class PronounTool {
   /**
+   * Escape HTML special characters to prevent injection.
+   *
+   * @param {string} value
+   * @returns {string}
+   */
+  static escapeHTML(value) {
+    if (value == null) return "";
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  /**
    * Create a new PronounTool.
    *
    * @param {PronounSet[]} pronounSets An array of available pronoun sets.
@@ -139,6 +155,7 @@ export default class PronounTool {
     };
 
     let result = "";
+    let usedFallbackLastName = false;
 
     for (let i = 0; i < text.length; ) {
       const ch = text.charAt(i);
@@ -150,7 +167,6 @@ export default class PronounTool {
           const token = text.substring(i + 1, end);
           const trimmed = token.trim();
           let replacement = "";
-          let pronounUsed = null;
           let isPronoun = PronounTool.isPronounToken(trimmed);
 
           if (isPronoun) {
@@ -158,7 +174,6 @@ export default class PronounTool {
               randomMode === "each"
                 ? PronounTool.randomChoice(selectedSets)
                 : fixedSet;
-            pronounUsed = pronounSet;
             const { firstName } = pickPerson();
 
             const lower = trimmed.toLowerCase();
@@ -177,20 +192,33 @@ export default class PronounTool {
             }
 
             replacement = PronounTool.adjustCase(trimmed, replacement);
+            const safeReplacement = PronounTool.escapeHTML(replacement);
+            const safePronounLabel = PronounTool.escapeHTML(
+              pronounSet.bezeichnung,
+            );
 
             // Wrap in span with the corresponding pronoun as metadata
-            result += `<span data-pronoun="${pronounSet.bezeichnung}">${replacement}</span>`;
+            result += `<span data-pronoun="${safePronounLabel}">${safeReplacement}</span>`;
           } else {
             // Name or combined token
             const { firstName, lastName, fallbackLastName, salutation } =
               pickPerson();
             const resolvedLastName = lastName || fallbackLastName;
+            const hasFallbackLastName = !lastName && !!fallbackLastName;
+            const usesLastNameToken =
+              trimmed === "Nachname" ||
+              trimmed === "Vorname Nachname" ||
+              trimmed === "Vorname + Nachname" ||
+              trimmed === "Anrede" ||
+              trimmed === "Anrede/Vorname + Nachname";
             const resolveAddress = () => {
               if (salutation) {
                 const surname = resolvedLastName || firstName;
                 return surname ? `${salutation} ${surname}` : salutation;
               }
-              return firstName;
+              return (
+                firstName + (resolvedLastName ? ` ${resolvedLastName}` : "")
+              );
             };
             if (trimmed === "Vorname") {
               replacement = firstName;
@@ -209,18 +237,23 @@ export default class PronounTool {
               trimmed === "Anrede/Vorname + Nachname"
             ) {
               replacement = resolveAddress();
-            } else if (
-              trimmed === "Vorname + Nachname" ||
-              trimmed === "Vorname Nachname"
-            ) {
-              replacement = firstName + (lastName ? " " + lastName : "");
             } else {
               replacement = trimmed;
             }
 
             replacement = PronounTool.adjustCase(trimmed, replacement);
+            const safeReplacement = PronounTool.escapeHTML(replacement);
 
-            result += `<span>${replacement}</span>`;
+            if (
+              usesLastNameToken &&
+              hasFallbackLastName &&
+              resolvedLastName &&
+              replacement.includes(resolvedLastName)
+            ) {
+              usedFallbackLastName = true;
+            }
+
+            result += `<span>${safeReplacement}</span>`;
           }
 
           i = end + 1;
@@ -229,10 +262,10 @@ export default class PronounTool {
       }
 
       // If not a token, append the character as is
-      result += ch;
+      result += PronounTool.escapeHTML(ch);
       i += 1;
     }
 
-    return { html: result, pronounSet: fixedSet };
+    return { html: result, pronounSet: fixedSet, usedFallbackLastName };
   }
 }

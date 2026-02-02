@@ -47,7 +47,7 @@ export default class PronounSet {
 
   /**
    * Compute the possessive suffix for a name. When the name ends
-   * with an s or S, only an apostrophe is appended. Otherwise an "s" is added.
+   * with an s/S or x/X, only an apostrophe is appended. Otherwise an "s" is added.
    *
    * @param {string} name The base name.
    * @returns {string} The possessive form of the name.
@@ -55,12 +55,16 @@ export default class PronounSet {
   static possessive(name) {
     if (!name) return "";
 
-    const last = name.slice(-1);
-    if (last === "s" || last === "S") {
-      return name + "'";
+    const trimmed = String(name).trim();
+    if (!trimmed) return "";
+
+    const match = trimmed.match(/[\p{L}\p{M}]*[\p{L}]$/u);
+    const last = match ? match[0].slice(-1) : trimmed.slice(-1);
+    if (last === "s" || last === "S" || last === "x" || last === "X") {
+      return trimmed + "'";
     }
 
-    return name + "s";
+    return trimmed + "s";
   }
 
   /**

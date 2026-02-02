@@ -1,29 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <title>Pronomen‑Kleiderschrank Demo</title>
-    <link rel="stylesheet" href="src/style.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Pronomen‑Kleiderschrank | Queer-Lexikon.net</title>
+    <meta
+      name="description"
+      content="Der Pronomen‑Kleiderschrank ist dein Übungsraum: Teste neue Namen und Pronomen in zusammenhängenden Texten."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Pronomen‑Kleiderschrank | Queer-Lexikon.net"
+    />
+    <meta
+      property="og:description"
+      content="Der Pronomen‑Kleiderschrank ist dein Übungsraum: Teste neue Namen und Pronomen in zusammenhängenden Texten."
+    />
+    <meta
+      property="og:url"
+      content="https://kleiderschrank.queer-lexikon.net/"
+    />
+    <meta
+      property="og:image"
+      content="https://kleiderschrank.queer-lexikon.net/img/social.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Pronomen‑Kleiderschrank | Queer-Lexikon.net"
+    />
+    <meta
+      name="twitter:description"
+      content="Der Pronomen‑Kleiderschrank ist dein Übungsraum: Teste neue Namen und Pronomen in zusammenhängenden Texten."
+    />
+    <meta
+      name="twitter:image"
+      content="https://kleiderschrank.queer-lexikon.net/img/social.png"
+    />
+    <link rel="stylesheet" href="src/style.css" />
   </head>
+
   <body>
-    
-    <header>
-      <div id="logobox">
-        <a href="https://queer-lexikon.net"><img id="logo" alt="Queer Lexikon Logo ein Einhorn mit einer Regenbogenfarbenen Mähne vor dem Rücken eines aufgeschlagenen Buches. Unten steht Queer Lexikon" role="heading" aria-level="1" src="img/Logo_Queer Lexikon_standard.svg"></a>
+    <header class="site-header">
+      <div id="logobox" class="logo-box">
+        <a href="https://queer-lexikon.net"
+          ><img
+            id="logo"
+            alt="Queer Lexikon"
+            role="heading"
+            aria-level="1"
+            src="img/Logo_Queer Lexikon_standard.svg"
+        /></a>
       </div>
+      <h1 class="site-title">Pronomen‑Kleiderschrank</h1>
     </header>
 
-    <div id="wrap">
-      <h1>Pronomen‑Kleiderschrank</h1>
+    <main id="wrap" class="layout">
+      <section class="panel panel--left card" aria-label="Eingaben">
+        <div class="field">
+          <label for="names">Dein Name</label>
+          <div class="names-group">
+            <div id="namesContainer" class="names-container">
+              <input
+                type="text"
+                id="names"
+                class="name-input"
+                placeholder="z.B. Alex Müller"
+              />
+            </div>
+          </div>
+        </div>
 
-      <section id="calibrate">
-        <section class="checking">
-          <label for="names"><span class="strong">Name(n):</span></label>
-          <input type="text" id="names" placeholder="z.B. Alex Müller, Kim" />
-        </section>
-
-        <section class="checking">
-          <label for="salutation"><span class="strong">Anrede (optional):</span></label>
+        <div class="field">
+          <label for="salutation">Anrede</label>
           <select id="salutation">
             <option value="">Vorname + Nachname</option>
             <option value="Frau">Frau</option>
@@ -31,68 +87,225 @@
             <option value="Person">Person</option>
             <option value="Mx.">Mx.</option>
           </select>
-        </section>
+        </div>
 
-        <section class="checking">
-          <label for="textSelector"><span class="strong">Text auswählen:</span></label>
-          <select id="textSelector"></select>
-        </section>
+        <a class="skip-link" href="#textSelector"
+          >Pronomen nicht auswählen und zur Textauswahl springen</a
+        >
+        <section
+          id="pronounContainer"
+          class="card card--inner"
+          aria-label="Pronomen-Auswahl"
+        ></section>
+        <label class="toggle-button">
+          <input
+            type="checkbox"
+            id="markerToggle"
+            name="markerToggle"
+            checked
+          />
+          <span>
+            <img src="img/fas-marker.svg" alt="" aria-hidden="true" />
+            Deine Pronomen hervorheben
+          </span>
+        </label>
 
-        <section id="pronounContainer">
-          <h3><span class="strong">Pronomen auswählen:</span></h3>
-        </section>
+        <div class="card-footer">
+          <hr aria-hidden="true" />
+          <div class="share-actions">
+            <button
+              type="button"
+              id="shareSheetButton"
+              class="share-button share-button--icon"
+            >
+              <img src="img/fas-share.svg" alt="" aria-hidden="true" />
+              Teilen
+            </button>
+            <button type="button" id="shareButton" class="share-button">
+              Link mit deinen Einstellungen kopieren
+            </button>
+          </div>
+        </div>
+      </section>
 
-        <section>
-          <h3><span class="strong">Zufallsmodus:</span></h3>
-          <label>
-            <input
-              type="radio"
-              id="randomSingle"
-              name="randomMode"
-              value="single"
-              checked
-            />
-            Ein Pronomen je Text
-          </label>
-          <label>
-            <input 
-              type="radio" 
-              id="randomEach" 
-              name="randomMode" 
-              value="each" 
-            />
-            Jedes Pronomen zufällig</label>
-        </section>
-
-        <section>
-          <button id="generateButton">Generieren</button>
+      <section class="panel panel--right" aria-label="Ausgabe">
+        <section id="results" class="card results" aria-label="Ergebnisse">
+          <div class="results-controls">
+            <div class="field">
+              <label for="textSelector">Text auswählen</label>
+              <div class="select-row">
+                <select id="textSelector"></select>
+                <button
+                  type="button"
+                  id="randomTextButton"
+                  class="icon-button"
+                  aria-label="Zufälligen Text auswählen"
+                  title="Zufälligen Text auswählen"
+                >
+                  <img src="img/fas-shuffle.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+            <div class="random-mode">
+              <div class="random-mode-row">
+                <div class="button-group">
+                  <label>
+                    <input
+                      type="radio"
+                      id="randomSingle"
+                      name="randomMode"
+                      value="single"
+                      checked
+                    />
+                    <span>Nur ein Pronomen</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      id="randomEach"
+                      name="randomMode"
+                      value="each"
+                    />
+                    <span>Wechselnde Pronomen</span>
+                  </label>
+                </div>
+                <button
+                  type="button"
+                  id="rerunButton"
+                  class="icon-button"
+                  aria-label="Text erneut generieren"
+                  title="Text erneut generieren"
+                >
+                  <img src="img/fas-repeat.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <noscript class="results-disclaimer">
+            <span class="results-disclaimer__text">
+              Für die Textgenerierung muss JavaScript aktiviert sein.
+            </span>
+          </noscript>
+          <div id="resultsOutput"></div>
         </section>
       </section>
 
-      <section id="results">
-        
+      <section class="faq">
+        <div class="faq-inner">
+          <h2>Fragen und Antworten</h2>
+          <img
+            class="faq-illustration"
+            src="img/Einhorn.png"
+            alt="Illustration eines Einhorns"
+          />
+          <div class="faq-item">
+            <h3>Was sind Pronomen?</h3>
+            <p>
+              Pronomen sind Wörter wie <b>du</b>, <b>er</b> und <b>sie</b>, die
+              an die Stelle von Substantiven und Namen treten, um Sätze zu
+              vereinfachen oder Wiederholungen zu vermeiden. Im queeren Kontext
+              bezeichnet „Pronomen“ oft nur die Personalpronomen. Im Deutschen
+              werden für Personen vergeschlechtlichte Pronomen genutzt. Es
+              entstehen aber inzwischen auch Vorschläge für
+              nicht-vergeschlechtlichte Pronomen für Personen, sogenannte
+              Neopronomen. Mehr erfährst du in unserem
+              <a href="https://queer-lexikon.net/lexikon/glossar/"
+                >queeren Glossar</a
+              >.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>Wofür ein Pronomen‑Kleiderschrank?</h3>
+            <p>
+              Der Pronomen‑Kleiderschrank ist dein Übungsraum: Du kannst testen,
+              wie verschiedene Namen und Pronomen in zusammenhängenden Texten
+              oder Alltagssituationen klingen und aussehen. Er hilft dir,
+              Sprache zu finden, die sich für dich richtig anfühlt. Dadurch
+              kannst du Unsicherheiten abbauen und dich mit neuen Pronomen
+              vertraut machen. Du kannst auch den Link mit deinen Einstellungen
+              an deine Freund*innen und Familie schicken, um ihnen dabei zu
+              helfen, die richtigen Pronomen für dich zu üben.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>Was macht das Queer Lexikon?</h3>
+            <p>
+              Wir sind eine Online-Anlaufstelle zu sexueller, romantischer und
+              geschlechtlicher Vielfalt. Wir sind für lesbische, schwule,
+              bisexuelle, asexuelle, aromantische, trans, nicht-binäre, inter*,
+              polyamuröse, questioning und queere Menschen und Kinder aus
+              Regenbogenfamilien da – aber auch für alle anderen. Wir
+              konzentrieren uns in unserer Arbeit vor allem auf junge Menschen,
+              aber wir haben Angebote für Menschen jeden Alters. Wir sind als
+              gemeinnütziger Verein organisiert. Mehr über uns und unsere Arbeit
+              findest du auf
+              <a href="https://queer-lexikon.net">queer-lexikon.net</a>.
+            </p>
+          </div>
+        </div>
       </section>
-      
-      <div id="lowSpacer">
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-col--logo">
+          <a href="https://www.postcode-lotterie.de">
+            <img
+              id="sponsor"
+              src="img/DPL_Logo_projektbezogen_Web.png"
+              alt="Unterstützt von Teilnehmer*innen der Deutsche Postcode Lotterie"
+            />
+          </a>
+        </div>
+        <div class="footer-col footer-col--attribution">
+          <p>
+            Der Pronomen-Kleiderschrank ist ein Projekt des
+            <a href="https://queer-lexikon.net/">Queer Lexikon e.V.</a>
+          </p>
+          <p>
+            Mit Design von
+            <a href="https://owlisdoodles.art/">Kim Lis Bieker</a> &amp; Kim und
+            Texten von
+            <a href="https://valochristiansen.com">Valo</a>
+          </p>
+        </div>
+        <div class="footer-col footer-col--links">
+          <ul>
+            <li><a href="https://qlx.li/social">Social Media</a></li>
+            <li>
+              <a href="https://queer-lexikon.net/ueber-uns/spenden/"
+                >Unterstütze uns!</a
+              >
+            </li>
+            <li>
+              <a href="https://github.com/queer-lexikon/kleiderschrank"
+                >Quellcode</a
+              >
+            </li>
+            <li>
+              <a href="https://queer-lexikon.net/ueber-uns/so-erreichst-du-uns/"
+                >Kontakt & Feedback</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
-      
-    
-    </div>
-  
-    <footer>
-      <div id="sponsorbox">
-        <a href="https://www.postcode-lotterie.de"><img id="sponsor" src="img/DPL_Logo_projektbezogen_Web.png" alt="Logo Deutsche Postcode Lotterie"></a>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="https://queer-lexikon.net/impressum/">Impressum</a>
+          <a href="https://queer-lexikon.net/datenschutz/">Datenschutz</a>
+        </div>
+        <div class="footer-license">
+          Lizenzen:
+          <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3 für Code</a>
+          ·
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+            >CC‑BY‑SA 4.0 für Texte</a
+          >
+        </div>
       </div>
-      <ul>
-        <li><a href="https://qlx.li/social">Social Media</a></li>
-        <li><a href="https://queer-lexikon.net/ueber-uns/spenden/">Unterstütze Uns!</a></li>
-        <li><a href="https://queer-lexikon.net/ueber-uns/so-erreichst-du-uns/">Kontakt & Feedback</a></li>
-        <li><a href="https://queer-lexikon.net/impressum/">Impressum</a></li>
-        <li><a href="https://queer-lexikon.net/datenschutz/">Datenschutz</a></li>
-      </ul>
     </footer>
 
     <script type="module" src="src/index.js"></script>
-
   </body>
 </html>
