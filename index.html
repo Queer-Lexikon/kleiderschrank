@@ -64,6 +64,10 @@
 
     <main id="wrap" class="layout">
       <section class="panel panel--left card" aria-label="Eingaben">
+        <p class="mobile-sr-note">
+          Alle Eingaben sind freiwillig. Lass Felder leer, um zufällige
+          Vorschläge zu bekommen.
+        </p>
         <div class="field">
           <label for="names">Dein Name</label>
           <div class="names-group">
@@ -119,10 +123,19 @@
               class="share-button share-button--icon"
             >
               <img src="img/fas-share.svg" alt="" aria-hidden="true" />
-              Teilen
+              <span class="share-button__label"
+                >Deine Einstellungen teilen</span
+              >
             </button>
-            <button type="button" id="shareButton" class="share-button">
-              Link mit deinen Einstellungen kopieren
+            <button
+              type="button"
+              id="shareButton"
+              class="share-button share-button--icon"
+            >
+              <img src="img/fas-share.svg" alt="" aria-hidden="true" />
+              <span class="share-button__label">
+                Link mit deinen Einstellungen kopieren
+              </span>
             </button>
           </div>
         </div>
@@ -190,6 +203,36 @@
         </section>
       </section>
 
+      <dialog
+        id="markerDialog"
+        class="marker-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="markerDialogTitle"
+        aria-describedby="markerDialogBody"
+      >
+        <span class="marker-dialog__arrow" aria-hidden="true"></span>
+        <div class="marker-dialog__card">
+          <div class="marker-dialog__header">
+            <h2 id="markerDialogTitle">Einfügung</h2>
+          </div>
+          <div
+            id="markerDialogBody"
+            class="marker-dialog__body"
+            tabindex="-1"
+          ></div>
+          <button
+            type="button"
+            class="marker-dialog__close"
+            data-dialog-close
+            aria-label="Schließen"
+            title="Schließen"
+          >
+            &times;
+          </button>
+        </div>
+      </dialog>
+
       <section class="faq">
         <div class="faq-inner">
           <h2>Fragen und Antworten</h2>
@@ -198,8 +241,8 @@
             src="img/Einhorn.png"
             alt="Illustration eines Einhorns"
           />
-          <div class="faq-item">
-            <h3>Was sind Pronomen?</h3>
+          <details class="faq-item" open>
+            <summary>Was sind Pronomen?</summary>
             <p>
               Pronomen sind Wörter wie <b>du</b>, <b>er</b> und <b>sie</b>, die
               an die Stelle von Substantiven und Namen treten, um Sätze zu
@@ -213,22 +256,62 @@
                 >queeren Glossar</a
               >.
             </p>
-          </div>
-          <div class="faq-item">
-            <h3>Wofür ein Pronomen‑Kleiderschrank?</h3>
+          </details>
+          <details class="faq-item" open>
+            <summary>Wofür ein Pronomen‑Kleiderschrank?</summary>
             <p>
               Der Pronomen‑Kleiderschrank ist dein Übungsraum: Du kannst testen,
               wie verschiedene Namen und Pronomen in zusammenhängenden Texten
               oder Alltagssituationen klingen und aussehen. Er hilft dir,
               Sprache zu finden, die sich für dich richtig anfühlt. Dadurch
               kannst du Unsicherheiten abbauen und dich mit neuen Pronomen
-              vertraut machen. Du kannst auch den Link mit deinen Einstellungen
-              an deine Freund*innen und Familie schicken, um ihnen dabei zu
-              helfen, die richtigen Pronomen für dich zu üben.
+              vertraut machen.
             </p>
-          </div>
-          <div class="faq-item">
-            <h3>Was macht das Queer Lexikon?</h3>
+          </details>
+          <details class="faq-item">
+            <summary>Kann ich auch mehr als ein Pronomen benutzen?</summary>
+            <p>
+              Ja, absolut. Viele Menschen nutzen mehrere Pronomen – je nach
+              Situation oder einfach, weil es sich abwechselnd richtig anfühlt.
+              Du kannst hier ausprobieren, wie verschiedene Kombinationen
+              klingen, und schauen, was für dich passt. Du darfst deine Pronomen
+              auch jederzeit wechseln, wenn du dich nicht mehr wohl mit ihnen
+              fühlst.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Wie kann ich anderen Leuten von meinen Pronomen erzählen?
+            </summary>
+            <p>
+              Du darfst selbst entscheiden, wann und wie du darüber sprichst.
+              Manchen hilft eine kurze Chat-Nachricht, andere wählen ein
+              persönliches Gespräch. In unserer
+              <a href="https://qlx.li/coming-out"
+                >Broschüre zum Thema Coming‑Out</a
+              >
+              findest du Ideen und Formulierungen, die dich dabei unterstützen
+              können. Du kannst auch den Link mit deinen Einstellungen aus dem
+              Pronomen-Kleiderschrank an deine Freund*innen und Familie
+              schicken, um ihnen dabei zu helfen, die richtigen Pronomen für
+              dich zu üben.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Eine andere Person hat mir diesen Link geschickt. Was nun?
+            </summary>
+            <p>
+              Das bedeutet zuerst einmal einen großen Vertrauensbeweis, also
+              lerne zunächst, wie du die Person mit ihren neuen Pronomen
+              ansprechen kannst. Unsere
+              <a href="https://qlx.li/eltern">Broschüre für Angehörige</a>
+              bietet weitere Infos und erste Schritte, um trans Personen gut zu
+              unterstützen.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Was macht das Queer Lexikon?</summary>
             <p>
               Wir sind eine Online-Anlaufstelle zu sexueller, romantischer und
               geschlechtlicher Vielfalt. Wir sind für lesbische, schwule,
@@ -237,10 +320,13 @@
               Regenbogenfamilien da – aber auch für alle anderen. Wir
               konzentrieren uns in unserer Arbeit vor allem auf junge Menschen,
               aber wir haben Angebote für Menschen jeden Alters. Wir sind als
-              gemeinnütziger Verein organisiert. Mehr über uns und unsere Arbeit
-              findest du auf
-              <a href="https://queer-lexikon.net">queer-lexikon.net</a>.
+              gemeinnütziger Verein organisiert.
             </p>
+          </details>
+          <div class="faq-cta">
+            <a class="faq-cta__link" href="https://queer-lexikon.net"
+              >Zum Queer Lexikon</a
+            >
           </div>
         </div>
       </section>
@@ -261,12 +347,12 @@
           <p>
             Der Pronomen-Kleiderschrank ist ein Projekt des
             <a href="https://queer-lexikon.net/">Queer Lexikon e.V.</a>
+            mit Design von
+            <a href="https://owlisdoodles.art/">Kim Lis Bieker</a> und Kim. Die
+            Texte sind von <a href="https://valochristiansen.com">Valo</a>.
           </p>
           <p>
-            Mit Design von
-            <a href="https://owlisdoodles.art/">Kim Lis Bieker</a> &amp; Kim und
-            Texten von
-            <a href="https://valochristiansen.com">Valo</a>
+            Deine Eingaben bleiben privat und werden nicht von uns gespeichert.
           </p>
         </div>
         <div class="footer-col footer-col--links">
@@ -306,6 +392,6 @@
       </div>
     </footer>
 
-    <script type="module" src="src/index.js"></script>
+    <script type="module" src="src/app/bootstrap.js"></script>
   </body>
 </html>
